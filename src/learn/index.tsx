@@ -7,7 +7,6 @@ import {
   XFlowNodeCommands,
   uuidv4, CanvasToolbar, XFlowConstants
 } from '@antv/xflow'
-import {DelNodeComponent} from "./delNode";
 import {UpdateNodeComponent} from "./updateNode";
 import {AddEdgeComponent} from "./AddEdge";
 import './index.css'
@@ -163,6 +162,7 @@ export const useGraphConfig = createGraphConfig(graphConfig => {
   graphConfig.setDefaultNodeRender(props => {
     return <div className="react-node"> {props.data.label} </div>
   })
+  // graphConfig.setEvents()
 })
 
 // props
@@ -248,7 +248,6 @@ const Demo: React.FC<{}> = (props) => {
         config={useGraphConfig(props)}
         position={{ top: 40, left: 230, right: 460, bottom: 0 }}
       />
-      <DelNodeComponent />
       <UpdateNodeComponent/>
       <AddEdgeComponent/>
       {/*<GlobalInfo/>*/}
