@@ -1,8 +1,8 @@
-import Demo from "./view/index.tsx";
-
+// import Demo from "./dag/index.tsx";
+import Demo from "./learn";
 function App() {
   return (
-    <div className="w-screen h-screen flex flex-col bg-red-700">
+    <div className="w-screen h-screen flex flex-col">
       <Demo/>
     </div>
   );

@@ -1,3 +1,24 @@
+"eslintConfig": {
+"extends": [
+"react-app",
+"react-app/jest"
+],
+"rules": {
+"no-undef": "off",
+"no-restricted-globals": "off",
+"no-unused-vars": "off"
+},
+"parserOptions": {
+"babelOptions": {
+"presets": [
+["babel-preset-react-app", false],
+["babel-preset-react-app/prod"]
+]
+}
+}
+
+},
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

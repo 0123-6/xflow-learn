@@ -70,10 +70,7 @@ const Demo: React.FC<IProps> = () => {
         })
     }
 
-    // @ts-ignore
-    // @ts-ignore
     return (
-        // @ts-ignore
         <XFlow
             className="xflow-user-container"
             graphData={graphData}
