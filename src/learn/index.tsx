@@ -1,13 +1,11 @@
 import React from 'react'
-import type { IAppLoad, NsNodeCmd } from '@antv/xflow'
+import {IAppLoad, NodeCollapsePanel, NsNodeCmd, XFlowGraphCommands} from '@antv/xflow'
 import {
   XFlow,
   createGraphConfig,
   XFlowCanvas,
   XFlowNodeCommands,
-  XFlowEdgeCommands,
-  NsEdgeCmd,
-  uuidv4, CanvasToolbar
+  uuidv4, CanvasToolbar, XFlowConstants
 } from '@antv/xflow'
 import {DelNodeComponent} from "./delNode";
 import {UpdateNodeComponent} from "./updateNode";
@@ -22,6 +20,144 @@ import {AddNodeComponent} from "./addNode";
 // import {useModelServiceConfig} from "../dag/config-model-service";
 // 左侧创建组件
 
+const nodeDataService = async (meta,modelService) => {
+  console.log('meta: ',meta)
+  console.log('modelService: ',modelService)
+  return [
+    {
+      id:'数据读写',
+      header:'数据读写',
+      children: [
+        {
+          id:'2',
+          label:'算法组件1',
+          renderKey: XFlowConstants.XFLOW_DEFAULT_NODE,
+          popoverContent: <div>算法组件1的描述</div>
+        },
+        {
+          id:'3',
+          label:'算法组件2',
+          renderKey: XFlowConstants.XFLOW_DEFAULT_NODE,
+          popoverContent: <div>算法组件2的描述</div>
+        },
+        {
+          id:'4',
+          label:'算法组件3',
+          renderKey: XFlowConstants.XFLOW_DEFAULT_NODE,
+          popoverContent: <div>算法组件3的描述</div>
+        },
+      ],
+    },
+    {
+      id:'数据加工',
+      header: '数据加工',
+      children: [
+        {
+          id:'6',
+          label:'算法组件4',
+          parentId: '5',
+          renderKey: XFlowConstants.XFLOW_DEFAULT_NODE,
+        },
+        {
+          id:'7',
+          label: '算法组件5',
+          parentId: '5',
+          renderKey: XFlowConstants.XFLOW_DEFAULT_NODE,
+        },
+        {
+          id:'8',
+          label: '算法组件6',
+          parentId: '5',
+          renderKey: XFlowConstants.XFLOW_DEFAULT_NODE
+        }
+      ]
+    }
+  ]
+}
+
+const onNodeDrop = (nodeConfig,commandService) => {
+  console.log('into onNodeDrop')
+  commandService.executeCommand(XFlowNodeCommands.ADD_NODE.id,{
+    nodeConfig: {
+      ...nodeConfig,
+      id:uuidv4(),
+      width:190,
+      heigth:32
+    }
+  })
+  return undefined
+}
+
+const NODE_COMMON_PROPS = {
+  width: 160,
+  height: 32,
+}
+
+const EDGE_COMMON_PROPS = {
+  attrs: {
+    line: {
+      targetMarker: {
+        name: 'block',
+        width:4,
+        height:8
+      },
+      strokeDasharray: '',
+      stroke: '#A2B1C3',
+      strokeWidth: 1,
+    }
+  }
+}
+
+const getGraphData = () => {
+  const nodes = [
+    {
+      id:'node1',
+      label:'算法节点-1',
+      ...NODE_COMMON_PROPS,
+    },
+    {
+      id:'node2',
+      label:'算法节点-2',
+      ...NODE_COMMON_PROPS,
+    },
+    {
+      id:'node3',
+      label:'算法节点-3',
+      ...NODE_COMMON_PROPS,
+    },
+    {
+      id:'node4',
+      label:'算法节点-4',
+      ...NODE_COMMON_PROPS,
+    }
+  ]
+  const edges = [
+    {
+      id:uuidv4(),
+      source:'node1',
+      target:'node2',
+      ...EDGE_COMMON_PROPS
+    },
+    {
+      id:uuidv4(),
+      source:'node1',
+      target:'node3',
+      ...EDGE_COMMON_PROPS
+    },
+    {
+      id:uuidv4(),
+      source:'node1',
+      target:'node4',
+      ...EDGE_COMMON_PROPS
+    },
+  ]
+  return {
+    nodes,
+    edges
+  }
+}
+
+
 /**  graphConfig hook  */
 export const useGraphConfig = createGraphConfig(graphConfig => {
   graphConfig.setX6Config({ grid: true })
@@ -29,14 +165,32 @@ export const useGraphConfig = createGraphConfig(graphConfig => {
     return <div className="react-node"> {props.data.label} </div>
   })
 })
+
 // props
-const Demo: React.FC<{}> = () => {
+const Demo: React.FC<{}> = (props) => {
   // const graphHooksConfig = useGraphHookConfig(props)
   // const graphConfig = useGraphConfig()
   // const cmdConfig = useCmdConfig()
   // const modelServiceConfig = useModelServiceConfig()
   const toolbarConfig = useToolbarConfig()
   const onLoad: IAppLoad = async app => {
+    const res = await app.executeCommand(XFlowGraphCommands.GRAPH_LAYOUT.id,{
+      layoutType: 'dagre',
+      layoutOptions: {
+        type: 'dagre',
+        rankdir:'TB',
+        nodesep:60,
+        ranksep:30,
+      },
+      graphData:getGraphData(),
+    })
+    const {graphData} = res.contextProvider().getResult()
+    await app.executeCommand(XFlowGraphCommands.GRAPH_RENDER.id,{
+      graphData:graphData
+    })
+    await app.executeCommand(XFlowGraphCommands.GRAPH_ZOOM.id,{
+      factor: 'real'
+    })
     // 在appReadyCallback中可以通过app执行command
     // 删除节点
     app.executeCommand<NsNodeCmd.AddNode.IArgs>(XFlowNodeCommands.ADD_NODE.id, {
@@ -69,29 +223,29 @@ const Demo: React.FC<{}> = () => {
         height:40,
       },
     })
-    const EDGE_COMMON_PROPS = {
-      attrs: {
-        line: {
-          targetMarker: {
-            name: 'block',
-            width: 4,
-            height: 8,
-          },
-          strokeDasharray: '',
-          stroke: '#A2B1C3',
-          strokeWidth: 1,
-        },
-      },
-    } as const
+    // const EDGE_COMMON_PROPS = {
+    //   attrs: {
+    //     line: {
+    //       targetMarker: {
+    //         name: 'block',
+    //         width: 4,
+    //         height: 8,
+    //       },
+    //       strokeDasharray: '',
+    //       stroke: '#A2B1C3',
+    //       strokeWidth: 1,
+    //     },
+    //   },
+    // } as const
     // 添加连线XFlowEdgeCommands.ADD_EDGE
-    app.executeCommand<NsEdgeCmd.AddEdge.IArgs>(XFlowEdgeCommands.ADD_EDGE.id, {
-      edgeConfig: {
-        id: uuidv4(),
-        source: 'node1',
-        target: 'node2',
-        ...EDGE_COMMON_PROPS
-      }
-    })
+    // app.executeCommand<NsEdgeCmd.AddEdge.IArgs>(XFlowEdgeCommands.ADD_EDGE.id, {
+    //   edgeConfig: {
+    //     id: uuidv4(),
+    //     source: 'node1',
+    //     target: 'node2',
+    //     ...EDGE_COMMON_PROPS
+    //   }
+    // })
 
     return app
   }
@@ -99,17 +253,14 @@ const Demo: React.FC<{}> = () => {
   return (
     <XFlow onLoad={onLoad}
            className="xflow-workspace"
-           // modelServiceConfig={modelServiceConfig}
-           // commandConfig={cmdConfig}
-           // hookConfig={graphHooksConfig}
     >
-      {/*<NodeCollapsePanel*/}
-      {/*  searchService={dndPanelConfig.searchService}*/}
-      {/*  nodeDataService={dndPanelConfig.nodeDataService}*/}
-      {/*  onNodeDrop={dndPanelConfig.onNodeDrop}*/}
-      {/*  footerPosition={{ height: 0 }}*/}
-      {/*  bodyPosition={{ top: 40, bottom: 0, left: 0 }}*/}
-      {/*  position={{ top: 0, left: 0, bottom: 0, width: 230 }}/>*/}
+      <NodeCollapsePanel
+        header={<h4>组件面板</h4>}
+        footer={<div>底部</div>}
+        position={{width:230,top:0,bottom:0,left:0}}
+        onNodeDrop={onNodeDrop}
+        nodeDataService={nodeDataService}>
+      </NodeCollapsePanel>
       <AddNodeComponent />
       <CanvasToolbar
         className="xflow-workspace-toolbar-top"
@@ -119,7 +270,7 @@ const Demo: React.FC<{}> = () => {
       />
       <XFlowCanvas
         className="app-main-content"
-        // config={graphConfig}
+        config={useGraphConfig(props)}
         position={{ top: 40, left: 230, right: 460, bottom: 0 }}
       />
       <DelNodeComponent />

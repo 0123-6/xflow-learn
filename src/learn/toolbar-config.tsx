@@ -122,7 +122,7 @@ namespace NsConfig {
           XFlowGraphCommands.SAVE_GRAPH_DATA.id,
           {
             saveGraphDataService: async (_meta, data) => {
-              // console.log(data)
+              console.log(data)
               mySort(data);
               message.success('nodes count:' + data.nodes.length)
             },
