@@ -13,7 +13,6 @@ import {AddEdgeComponent} from "./AddEdge";
 import './index.css'
 // import {GlobalInfo} from "./globalInfo";
 import {useToolbarConfig} from "./toolbar-config";
-import {AddNodeComponent} from "./addNode";
 // import * as dndPanelConfig from "./config-dnd-panel";
 // import {useGraphHookConfig} from "./config-graph";
 // import {useCmdConfig} from "../dag/config-cmd";
@@ -80,8 +79,8 @@ const onNodeDrop = (nodeConfig,commandService) => {
   commandService.executeCommand(XFlowNodeCommands.ADD_NODE.id,{
     nodeConfig: {
       ...nodeConfig,
-      id:uuidv4(),
-      width:190,
+      id:'hh'+uuidv4(),
+      width:160,
       heigth:32
     }
   })
@@ -223,29 +222,6 @@ const Demo: React.FC<{}> = (props) => {
         height:40,
       },
     })
-    // const EDGE_COMMON_PROPS = {
-    //   attrs: {
-    //     line: {
-    //       targetMarker: {
-    //         name: 'block',
-    //         width: 4,
-    //         height: 8,
-    //       },
-    //       strokeDasharray: '',
-    //       stroke: '#A2B1C3',
-    //       strokeWidth: 1,
-    //     },
-    //   },
-    // } as const
-    // 添加连线XFlowEdgeCommands.ADD_EDGE
-    // app.executeCommand<NsEdgeCmd.AddEdge.IArgs>(XFlowEdgeCommands.ADD_EDGE.id, {
-    //   edgeConfig: {
-    //     id: uuidv4(),
-    //     source: 'node1',
-    //     target: 'node2',
-    //     ...EDGE_COMMON_PROPS
-    //   }
-    // })
 
     return app
   }
@@ -261,7 +237,6 @@ const Demo: React.FC<{}> = (props) => {
         onNodeDrop={onNodeDrop}
         nodeDataService={nodeDataService}>
       </NodeCollapsePanel>
-      <AddNodeComponent />
       <CanvasToolbar
         className="xflow-workspace-toolbar-top"
         layout="horizontal"
