@@ -1,5 +1,5 @@
 import React from 'react'
-import {IAppLoad, NodeCollapsePanel, NsNodeCmd, XFlowGraphCommands} from '@antv/xflow'
+import {IAppLoad, NodeCollapsePanel, NsGraph, NsNodeCmd, XFlowGraphCommands} from '@antv/xflow'
 import {
   XFlow,
   createGraphConfig,
@@ -80,7 +80,21 @@ const onNodeDrop = (nodeConfig,commandService) => {
       ...nodeConfig,
       id:'hh'+uuidv4(),
       width:160,
-      heigth:32
+      height:32,
+      ports: [
+        {
+          id: 'node1-input-1',
+          type: NsGraph.AnchorType.INPUT,
+          group: NsGraph.AnchorGroup.TOP,
+          tooltip: '输入桩',
+        },
+        {
+          id: 'node1-output-1',
+          type: NsGraph.AnchorType.OUTPUT,
+          group: NsGraph.AnchorGroup.BOTTOM,
+          tooltip: '输出桩',
+        },
+      ]
     }
   })
   return undefined
