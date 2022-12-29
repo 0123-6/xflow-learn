@@ -1,5 +1,5 @@
 import type { IToolbarItemOptions } from '@antv/xflow'
-import { createToolbarConfig, uuidv4 } from '@antv/xflow'
+import {createToolbarConfig, NsGraph, NsNodeCmd, uuidv4, XFlowNodeCommands} from '@antv/xflow'
 import type { IModelService } from '@antv/xflow'
 import {
     XFlowGraphCommands,
@@ -198,26 +198,38 @@ export namespace NSToolbarConfig {
             iconName: 'PlusOutlined',
             isEnabled: true,
             onClick: async ({ commandService }) => {
-                commandService.executeCommand<NsGraphStatusCommand.IArgs>(
-                    XFlowDagCommands.QUERY_GRAPH_STATUS.id,
-                    {
-                        graphStatusService: MockApi.stopGraphStatusService,
-                        loopInterval: 5000,
+                const nodeName = uuidv4()
+                commandService.executeCommand<NsNodeCmd.AddNode.IArgs>(XFlowNodeCommands.ADD_NODE.id, {
+                    nodeConfig: {
+                        id: nodeName,
+                        label: nodeName,
+                        x: 100 + Math.random()*300,
+                        y: 50 + Math.random()*300,
+                        width: 160,
+                        height: 32,
+                        ports:[
+                            {
+                                id:nodeName+'input1',
+                                type:NsGraph.AnchorType.INPUT,
+                                group:NsGraph.AnchorGroup.TOP,
+                                tooltip:'这是一个自定义输入顶点',
+                            },
+                            {
+                                id:nodeName+'input2',
+                                type:NsGraph.AnchorType.INPUT,
+                                group:NsGraph.AnchorGroup.TOP,
+                                tooltip:'这是一个自定义输入顶点',
+                            },
+                            {
+                                id:nodeName+'output1',
+                                type:NsGraph.AnchorType.OUTPUT,
+                                group:NsGraph.AnchorGroup.BOTTOM,
+                                tooltip:'这是一个自定义输出顶点',
+                            },
+                        ],
                     },
-                )
-            },
-            render: props => {
-                return (
-                    <Popconfirm
-                        title="确定停止执行？"
-                        onConfirm={() => {
-                            props.onClick()
-                        }}
-                    >
-                        {props.children}
-                    </Popconfirm>
-                )
-            },
+                })
+            }
         })
 
         return [

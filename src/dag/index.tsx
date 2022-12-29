@@ -41,13 +41,23 @@ export interface IProps {
     meta: { flowId: string }
 }
 
+// 组件定义,其中props = {
+//   meta: { flowId: 'test-meta-flow-id' },
+// }
 export const Demo: React.FC<IProps> = props => {
+    // meta = {flowId:'test-meta-flow-id'}
     const { meta } = props
+    // 图表挂钩配置
     const graphHooksConfig = useGraphHookConfig(props)
+    // 顶部导航栏配置
     const toolbarConfig = useToolbarConfig()
+    // 菜单栏配置
     const menuConfig = useMenuConfig()
+    // 命令配置
     const cmdConfig = useCmdConfig()
+    // 数据模型配置
     const modelServiceConfig = useModelServiceConfig()
+    // 键盘事件配置
     const keybindingConfig = useKeybindingConfig()
 
 
@@ -82,7 +92,7 @@ export const Demo: React.FC<IProps> = props => {
         }
     }, // @ts-ignore
         [cache.app, meta])
-
+    console.log('Demo组件重新执行了')
     return (
         <XFlow
             className="dag-user-custom-clz"

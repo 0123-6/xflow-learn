@@ -1,9 +1,8 @@
-import type {IToolbarItemOptions} from '@antv/xflow'
-import {createToolbarConfig, MODELS} from '@antv/xflow'
-import {XFlowGraphCommands, XFlowNodeCommands, IconStore} from '@antv/xflow'
-import {SaveOutlined, PlusCircleOutlined, DeleteOutlined} from '@ant-design/icons'
+import type {IToolbarItemOptions, NsGraphCmd, NsNodeCmd} from '@antv/xflow'
+import {createToolbarConfig, IconStore, MODELS, NsGraph, XFlowGraphCommands, XFlowNodeCommands} from '@antv/xflow'
+import {DeleteOutlined, PlusCircleOutlined, SaveOutlined} from '@ant-design/icons'
 import {message} from 'antd'
-import type {NsGraphCmd, NsNodeCmd} from '@antv/xflow'
+import AnchorGroup = NsGraph.AnchorGroup;
 
 class MyNode {
   id: any;
@@ -47,8 +46,9 @@ class MyNode {
   }
 }
 
-function mySort(data) {
-  console.log(data);
+// 拓扑排序,输入为一张图的节点数组和边数组
+function mySort(data,iiii) {
+  console.log('第'+iiii+'个联通子图: ',data);
   let nodeMap = new Map();
   let result = [];
   for (let i = 0; i < data.nodes.length; i++) {
@@ -69,7 +69,7 @@ function mySort(data) {
       }
     })
     if (nodeId === -1) {
-      console.error('存在环，拓扑排序失败')
+      console.error('第'+iiii+'个联通子图: '+'存在环，拓扑排序失败')
       break
     }
     let node = nodeMap.get(nodeId);
@@ -79,7 +79,86 @@ function mySort(data) {
       node2.decBeforeNodeList(nodeId)
     })
   }
-  console.log(result)
+  console.log('第'+iiii+'个联通子图: '+'拓扑排序结果: ',result)
+}
+
+// 将data中的节点和边分组，按照联通子图
+function getChildrenGraph(data) {
+  // console.log(data)
+  let result = []
+
+  // 找出联通子图
+  // 将为分类的节点数组
+  let willClassifyNodeList = [...data.nodes]
+  let willClassifyEdgeList = [...data.edges]
+  // console.log(willClassifyNodeList)
+  // console.log(willClassifyEdgeList)
+  // 如果待分类的节点数组不为空
+  while (willClassifyNodeList.length > 0) {
+    // 创建一个新的联通子图
+    let childGraph = {
+      nodes: [],
+      edges: [],
+    }
+    // 从待分类的节点数组中取一个，放入这个bfs数组中
+    // bfsList中的节点，willClassifyNodeList已没有，但还没有放到childGraph中
+    let bfsList = []
+    let node = willClassifyNodeList[0]
+    willClassifyNodeList.splice(0,1);
+    bfsList.push(node)
+    // bfs
+    while (bfsList.length > 0) {
+      let node2 = bfsList[0]
+      bfsList.splice(0,1);
+
+      // 把和node2有关系的边和顶点找到，边直接放到graph.edges中，顶点放到bfsList中
+      // node2为source
+      for(let i=0;i<willClassifyEdgeList.length;i++) {
+
+        if(willClassifyEdgeList[i].source === node2.id) {
+          // 有以该节点为source的边
+          let targetNodeId = willClassifyEdgeList[i].target
+          for(let j=0;j<willClassifyNodeList.length;j++) {
+            if(willClassifyNodeList[j].id === targetNodeId) {
+              bfsList.push(willClassifyNodeList[j])
+              willClassifyNodeList.splice(j,1)
+              break
+            }
+          }
+          // 删除掉该边
+          childGraph.edges.push(willClassifyEdgeList[i])
+          willClassifyEdgeList.splice(i,1)
+          i -= 1
+        }
+      }
+      // ndoe2为target
+      for(let i=0;i<willClassifyEdgeList.length;i++) {
+
+        if(willClassifyEdgeList[i].target === node2.id) {
+          // 有以该节点为source的边
+          let targetNodeId = willClassifyEdgeList[i].source
+          for(let j=0;j<willClassifyNodeList.length;j++) {
+            if(willClassifyNodeList[j].id === targetNodeId) {
+              bfsList.push(willClassifyNodeList[j])
+              willClassifyNodeList.splice(j,1)
+              break
+            }
+          }
+          // 删除掉该边
+          childGraph.edges.push(willClassifyEdgeList[i])
+          willClassifyEdgeList.splice(i,1)
+          i -= 1
+        }
+      }
+
+      childGraph.nodes.push(node2)
+    }
+    // bfs结束，该联通子图的节点和边已经保存在childGraph中
+    // 将创建的联通子图放入联通子图数组中
+    result.push(childGraph);
+  }
+
+  return result
 }
 
 namespace NSToolbarConfig {
@@ -124,6 +203,26 @@ namespace NSToolbarConfig {
             y: 50 + id * 5,
             width: 160,
             height: 32,
+            ports:[
+              {
+                id:nodeName+'input1',
+                type:NsGraph.AnchorType.INPUT,
+                group:AnchorGroup.TOP,
+                tooltip:'这是一个自定义输入顶点',
+              },
+              {
+                id:nodeName+'input2',
+                type:NsGraph.AnchorType.INPUT,
+                group:AnchorGroup.TOP,
+                tooltip:'这是一个自定义输入顶点',
+              },
+              {
+                id:nodeName+'output1',
+                type:NsGraph.AnchorType.OUTPUT,
+                group:AnchorGroup.BOTTOM,
+                tooltip:'这是一个自定义输出顶点',
+              },
+            ],
           },
         })
         id += 1
@@ -153,7 +252,13 @@ namespace NSToolbarConfig {
           {
             saveGraphDataService: async (_meta, data) => {
               // console.log(data)
-              mySort(data);
+              // 将图中的所有节点分组(联通子图)
+              const childrenGraph = getChildrenGraph(data);
+              console.log('共存在'+childrenGraph.length+'个联通子图:',childrenGraph)
+              for(let i=0;i<childrenGraph.length;i++) {
+                mySort(childrenGraph[i],i+1)
+              }
+              // mySort(data);
               message.success('nodes count:' + data.nodes.length)
             },
           },

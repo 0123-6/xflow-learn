@@ -1,4 +1,4 @@
-import { DND_RENDER_ID, NODE_WIDTH, NODE_HEIGHT } from './constant'
+import {NODE_WIDTH, NODE_HEIGHT, DND_RENDER_ID} from './constant'
 import { uuidv4, NsGraph, NsGraphStatusCommand } from '@antv/xflow'
 import type { NsRenameNodeCmd } from './cmd-extensions/cmd-rename-node-modal'
 import type { NsNodeCmd, NsEdgeCmd, NsGraphCmd } from '@antv/xflow'
@@ -176,14 +176,15 @@ export namespace MockApi {
                 tooltip: '输出桩',
             },
         ] as NsGraph.INodeAnchor[]
-
-        const { id, ports = portItems, groupChildren } = args.nodeConfig
-        const nodeId = id || uuidv4()
+        const ports = portItems
+        const { groupChildren } = args.nodeConfig
         /** 这里添加连线桩 */
+        console.log('args.nodeConfig: ',args.nodeConfig)
+        console.log('NODE_COMMON_PROPS: ',NODE_COMMON_PROPS)
+        // console.log('args.nodeConfig: ',args.nodeConfig)
         const node: NsNodeCmd.AddNode.IArgs['nodeConfig'] = {
-            ...NODE_COMMON_PROPS,
             ...args.nodeConfig,
-            id: nodeId,
+            ...NODE_COMMON_PROPS,
             ports: (ports as NsGraph.INodeAnchor[]).map(port => {
                 return { ...port, id: uuidv4() }
             }),

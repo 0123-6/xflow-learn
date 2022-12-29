@@ -7,6 +7,8 @@ import { Card } from 'antd'
 import React from 'react'
 
 export const onNodeDrop: NsNodeCollapsePanel.IOnNodeDrop = async (node, commands) => {
+
+    debugger
     console.log('add Node', node)
     const args: NsNodeCmd.AddNode.IArgs = {
         nodeConfig: { ...node, id: uuidv4() },
