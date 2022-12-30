@@ -39,9 +39,7 @@ export const nodeDataService: NsNodeCollapsePanel.INodeDataService = async (meta
                     renderKey: DND_RENDER_ID,
                     popoverContent: <NodeDescription name="读数据表" content="读数据表"/>,
                     bd_component_name:"load_data_table",
-                    params:{
-                        data_path: ''
-                    },
+                    data_path: '',
                     ports:[
                         {
                             id:uuidv4(),
