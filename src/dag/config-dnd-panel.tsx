@@ -1,4 +1,4 @@
-import { uuidv4 } from '@antv/xflow'
+import {NsGraph, uuidv4} from '@antv/xflow'
 import { XFlowNodeCommands } from '@antv/xflow'
 import { DND_RENDER_ID } from './constant'
 import type { NsNodeCmd } from '@antv/xflow'
@@ -17,11 +17,10 @@ export const onNodeDrop: NsNodeCollapsePanel.IOnNodeDrop = async (node, commands
     commands.executeCommand(XFlowNodeCommands.ADD_NODE.id, args)
 }
 
-const NodeDescription = (props: { name: string }) => {
+const NodeDescription = (props: { name:string, content: string }) => {
     return (
-        <Card size="small" title="算法组件介绍" style={{ width: '200px' }} bordered={false}>
-            欢迎使用：{props.name}
-            这里可以根据服务端返回的数据显示不同的内容22
+        <Card size="small" title="介绍" style={{ width: '200px' }} bordered={false}>
+            {props.content}
         </Card>
     )
 }
@@ -30,30 +29,28 @@ export const nodeDataService: NsNodeCollapsePanel.INodeDataService = async (meta
     console.log(meta, modelService)
     return [
         {
-            id: '1',
-            header: '1-1',
+            id: '读',
+            header: '数据读取',
             children: [
                 {
-                    id: '2',
-                    label: '1-1',
-                    parentId: '1',
+                    id: '读数据表',
+                    label: '读数据表',
+                    parentId: '读',
                     renderKey: DND_RENDER_ID,
-                    popoverContent: <NodeDescription name="算法组件1" />,
-                },
-                {
-                    id: '3',
-                    label: '算法组件2',
-                    parentId: '1',
-                    renderKey: DND_RENDER_ID,
-                    popoverContent: <NodeDescription name="算法组件2" />,
-                },
-                {
-                    id: '4',
-                    label: '算法组件3',
-                    parentId: '1',
-                    renderKey: DND_RENDER_ID,
-                    popoverContent: <NodeDescription name="算法组件3" />,
-                },
+                    popoverContent: <NodeDescription name="读数据表" content="读数据表"/>,
+                    bd_component_name:"load_data_table",
+                    params:{
+                        data_path: ''
+                    },
+                    ports:[
+                        {
+                            id:uuidv4(),
+                            type: NsGraph.AnchorType.OUTPUT,
+                            group: NsGraph.AnchorGroup.BOTTOM,
+                            tooltip: '输出桩',
+                        }
+                    ]
+                }
             ],
         },
         {

@@ -154,29 +154,6 @@ export namespace MockApi {
     ) => {
         console.log('my 新建  节点')
         console.info('addNode service running, add node:', args)
-        const portItems = [
-            {
-                type: NsGraph.AnchorType.INPUT,
-                group: NsGraph.AnchorGroup.TOP,
-                tooltip: '输入桩1',
-            },
-            {
-                type: NsGraph.AnchorType.INPUT,
-                group: NsGraph.AnchorGroup.TOP,
-                tooltip: '输入桩2',
-            },
-            {
-                type: NsGraph.AnchorType.INPUT,
-                group: NsGraph.AnchorGroup.TOP,
-                tooltip: '输入桩3',
-            },
-            {
-                type: NsGraph.AnchorType.OUTPUT,
-                group: NsGraph.AnchorGroup.BOTTOM,
-                tooltip: '输出桩',
-            },
-        ] as NsGraph.INodeAnchor[]
-        const ports = portItems
         const { groupChildren } = args.nodeConfig
         /** 这里添加连线桩 */
         console.log('args.nodeConfig: ',args.nodeConfig)
@@ -185,23 +162,12 @@ export namespace MockApi {
         const node: NsNodeCmd.AddNode.IArgs['nodeConfig'] = {
             ...args.nodeConfig,
             ...NODE_COMMON_PROPS,
-            ports: (ports as NsGraph.INodeAnchor[]).map(port => {
-                return { ...port, id: uuidv4() }
-            }),
         }
         /** group没有链接桩 */
         if (groupChildren && groupChildren.length) {
             node.ports = []
         }
         console.log('实际node',node);
-        // node.ports = [
-        //     {
-        //         id: uuidv4(),
-        //         type: NsGraph.AnchorType.INPUT,
-        //         group: "bottom",
-        //         tooltip: '输入桩1',
-        //     },
-        // ]
         return node
     }
 
