@@ -35,12 +35,18 @@ export const nodeDataService: NsNodeCollapsePanel.INodeDataService = async (meta
                 {
                     id: '读数据表',
                     label: '读数据表',
-                    parentId: '读',
+                    parentId: '读数据表',
                     renderKey: DND_RENDER_ID,
                     popoverContent: <NodeDescription name="读数据表" content="读数据表"/>,
                     bd_component_name:"load_data_table",
                     data_path: '',
                     ports:[
+                        {
+                            id:uuidv4(),
+                            type: NsGraph.AnchorType.INPUT,
+                            group: NsGraph.AnchorGroup.TOP,
+                            tooltip: '输入桩',
+                        },
                         {
                             id:uuidv4(),
                             type: NsGraph.AnchorType.OUTPUT,
@@ -56,23 +62,27 @@ export const nodeDataService: NsNodeCollapsePanel.INodeDataService = async (meta
             header: '数据加工',
             children: [
                 {
-                    id: '6',
-                    label: '算法组件4',
-                    parentId: '5',
+                    id: '数据筛选',
+                    label: '数据筛选',
+                    parentId: '数据筛选',
                     renderKey: DND_RENDER_ID,
-                },
-                {
-                    id: '7',
-                    label: '算法组件5',
-                    parentId: '5',
-                    renderKey: DND_RENDER_ID,
-                },
-                {
-                    id: '8',
-                    label: '算法组件6',
-                    parentId: '5',
-                    renderKey: DND_RENDER_ID,
-                },
+                    popoverContent: <NodeDescription name="数据筛选" content="数据筛选"/>,
+                    ports: [
+                        {
+                            id:uuidv4(),
+                            type: NsGraph.AnchorType.INPUT,
+                            group: NsGraph.AnchorGroup.TOP,
+                            tooltip: '输入桩',
+                        },
+                        {
+                            id:uuidv4(),
+                            type: NsGraph.AnchorType.OUTPUT,
+                            group: NsGraph.AnchorGroup.BOTTOM,
+                            tooltip: '输出桩',
+                        }
+                    ],
+                    selectedColumnList: [],
+                }
             ],
         },
         {

@@ -36,6 +36,7 @@ import {formSchemaService,formValueUpdateService} from './r'
 
 import './index.less'
 import '@antv/xflow/dist/index.css'
+import {controlMapService} from "./config-form";
 
 export interface IProps {
     meta: { flowId: string }
@@ -133,6 +134,7 @@ export const Demo: React.FC<IProps> = props => {
             {/*    footerPosition={{ height: 0 }}*/}
             {/*/>*/}
             <JsonSchemaForm
+              controlMapService={controlMapService}
               formSchemaService={formSchemaService}
               formValueUpdateService={formValueUpdateService}
               position={{ top: 0, bottom: 0, right: 0, width: 290 }}
