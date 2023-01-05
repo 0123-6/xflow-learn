@@ -7,8 +7,6 @@ import { Card } from 'antd'
 import React from 'react'
 
 export const onNodeDrop: NsNodeCollapsePanel.IOnNodeDrop = async (node, commands) => {
-
-    debugger
     console.log('add Node', node)
     const args: NsNodeCmd.AddNode.IArgs = {
         nodeConfig: { ...node, id: uuidv4() },
@@ -67,6 +65,29 @@ export const nodeDataService: NsNodeCollapsePanel.INodeDataService = async (meta
                     parentId: '数据筛选',
                     renderKey: DND_RENDER_ID,
                     popoverContent: <NodeDescription name="数据筛选" content="数据筛选"/>,
+                    ports: [
+                        {
+                            id:uuidv4(),
+                            type: NsGraph.AnchorType.INPUT,
+                            group: NsGraph.AnchorGroup.TOP,
+                            tooltip: '输入桩',
+                        },
+                        {
+                            id:uuidv4(),
+                            type: NsGraph.AnchorType.OUTPUT,
+                            group: NsGraph.AnchorGroup.BOTTOM,
+                            tooltip: '输出桩',
+                        }
+                    ],
+                    selectedColumnList: [],
+                    test: '',
+                },
+                {
+                    id: '测试',
+                    label: '测试',
+                    parentId: '测试',
+                    renderKey: DND_RENDER_ID,
+                    popoverContent: <NodeDescription name="测试" content="测试"/>,
                     ports: [
                         {
                             id:uuidv4(),

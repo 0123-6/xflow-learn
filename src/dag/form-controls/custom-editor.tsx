@@ -38,6 +38,8 @@ interface IEditorProps extends NsJsonSchemaForm.IFormItemProps {
 
 const Editor: React.FC<IEditorProps> = props => {
     const { placeholder, disabled, onChange, value } = props
+    console.log('disabled: ',disabled)
+    console.log('value: ',value)
     const { commandService, modelService } = useXFlowApp()
     React.useEffect(() => {
         commandService.executeCommand<NsGraphCmd.SaveGraphData.IArgs>(
@@ -54,5 +56,6 @@ const Editor: React.FC<IEditorProps> = props => {
         )
     })
 
-    return <Input.TextArea value={value} placeholder={placeholder} disabled={disabled} rows={10} />
+    //disabled={disabled}
+    return <Input value={'sss'} placeholder={placeholder} />
 }

@@ -65,7 +65,6 @@ export const useCmdConfig = createCmdConfig(config => {
 
 /** 查询图的节点和边的数据 */
 export const initGraphCmds = (app: IApplication) => {
-    debugger
     app.executeCommandPipeline([
         /** 1. 从服务端获取数据 */
         {

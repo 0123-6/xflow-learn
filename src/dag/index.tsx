@@ -32,11 +32,11 @@ import { useKeybindingConfig } from './config-keybinding'
 /** 配置Dnd组件面板 */
 import * as dndPanelConfig from './config-dnd-panel'
 /** 配置JsonConfigForm */
-import {formSchemaService,formValueUpdateService} from './r'
+import {controlMapService, formSchemaService, formValueUpdateService} from "./config-form";
 
 import './index.less'
 import '@antv/xflow/dist/index.css'
-import {controlMapService} from "./config-form";
+
 
 export interface IProps {
     meta: { flowId: string }
