@@ -54,6 +54,8 @@ export const Demo: React.FC<IProps> = props => {
     const toolbarConfig = useToolbarConfig()
     // 菜单栏配置
     const menuConfig = useMenuConfig()
+    console.log('typeof menuConfig: ',typeof menuConfig)
+    console.log('menuConfig: ',menuConfig)
     // 命令配置
     const cmdConfig = useCmdConfig()
     // 数据模型配置
@@ -134,6 +136,7 @@ export const Demo: React.FC<IProps> = props => {
             {/*    footerPosition={{ height: 0 }}*/}
             {/*/>*/}
             <JsonSchemaForm
+              afterUpdatingCb={ async () => console.log('afterUpdatingCb')}
               controlMapService={controlMapService}
               formSchemaService={formSchemaService}
               formValueUpdateService={formValueUpdateService}

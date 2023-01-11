@@ -5,7 +5,9 @@ import React from 'react'
 
 export const SelectMuiti: React.FC<NsJsonSchemaForm.IControlProps> = props => {
   const { controlSchema } = props
-  const { required, tooltip, extra, name,options,label } = controlSchema
+  // @ts-ignore
+  const { required, tooltip, extra, name,optionsMuiti,label } = controlSchema
+  const options = optionsMuiti
 
   return (
     <FormItemWrapper schema={controlSchema}>

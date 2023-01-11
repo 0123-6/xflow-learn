@@ -15,6 +15,7 @@
     "@types/react": "^17.0.52",
     "@types/react-dom": "^17.0.18",
     "antd": "^4.24.5",
+    "axios": "^1.2.2",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
     "babel-plugin-named-asset-import": "^0.3.8",

@@ -27,7 +27,7 @@ export const nodeDataService: NsNodeCollapsePanel.INodeDataService = async (meta
     console.log(meta, modelService)
     return [
         {
-            id: '读',
+            id: '数据读取',
             header: '数据读取',
             children: [
                 {
@@ -35,9 +35,7 @@ export const nodeDataService: NsNodeCollapsePanel.INodeDataService = async (meta
                     label: '读数据表',
                     parentId: '读数据表',
                     renderKey: DND_RENDER_ID,
-                    popoverContent: <NodeDescription name="读数据表" content="读数据表"/>,
-                    bd_component_name:"load_data_table",
-                    data_path: '',
+                    popoverContent: <NodeDescription name="读数据表" content="读取表格数据"/>,
                     ports:[
                         {
                             id:uuidv4(),
@@ -51,7 +49,19 @@ export const nodeDataService: NsNodeCollapsePanel.INodeDataService = async (meta
                             group: NsGraph.AnchorGroup.BOTTOM,
                             tooltip: '输出桩',
                         }
-                    ]
+                    ],
+
+                    // 节点自己的参数
+                    // 执行代码名
+                    params_bd_component_name: 'load_data_table',
+                    // 用户输入
+                    // 输入参数
+                    params_user_data_path_url: '',
+
+                    // 输出参数
+                    output_data_path_url: '',
+                    // 表头名列表
+                    output_column_list: [],
                 }
             ],
         },
@@ -64,7 +74,7 @@ export const nodeDataService: NsNodeCollapsePanel.INodeDataService = async (meta
                     label: '数据筛选',
                     parentId: '数据筛选',
                     renderKey: DND_RENDER_ID,
-                    popoverContent: <NodeDescription name="数据筛选" content="数据筛选"/>,
+                    popoverContent: <NodeDescription name="数据筛选" content="通过选择行、列与列条件筛选的方式来选择数据"/>,
                     ports: [
                         {
                             id:uuidv4(),
@@ -79,31 +89,42 @@ export const nodeDataService: NsNodeCollapsePanel.INodeDataService = async (meta
                             tooltip: '输出桩',
                         }
                     ],
-                    selectedColumnList: [],
-                    test: '',
+
+                    // 输入参数
+                    params_data_path_url: '',  //上一步输出
+                    params_column_list: [],// 传入的全部列名列表
+                    params_bd_component_name: 'data_screening',
+                    params_is_singal_debug: 0,  // 是否是单节点运行
+                    // 用户筛选的列名列表
+                    params_user_column_filter_list: [],
+
+                    // 输出参数,输出csw文件对应的url
+                    output_data_path_url: '',
+                    // 筛选列列表,后端返回给前端的csv文件表的列名列表
+                    output_column_list: [],
                 },
-                {
-                    id: '测试',
-                    label: '测试',
-                    parentId: '测试',
-                    renderKey: DND_RENDER_ID,
-                    popoverContent: <NodeDescription name="测试" content="测试"/>,
-                    ports: [
-                        {
-                            id:uuidv4(),
-                            type: NsGraph.AnchorType.INPUT,
-                            group: NsGraph.AnchorGroup.TOP,
-                            tooltip: '输入桩',
-                        },
-                        {
-                            id:uuidv4(),
-                            type: NsGraph.AnchorType.OUTPUT,
-                            group: NsGraph.AnchorGroup.BOTTOM,
-                            tooltip: '输出桩',
-                        }
-                    ],
-                    selectedColumnList: [],
-                }
+                // {
+                //     id: '测试',
+                //     label: '测试',
+                //     parentId: '测试',
+                //     renderKey: DND_RENDER_ID,
+                //     popoverContent: <NodeDescription name="测试" content="测试"/>,
+                //     ports: [
+                //         {
+                //             id:uuidv4(),
+                //             type: NsGraph.AnchorType.INPUT,
+                //             group: NsGraph.AnchorGroup.TOP,
+                //             tooltip: '输入桩',
+                //         },
+                //         {
+                //             id:uuidv4(),
+                //             type: NsGraph.AnchorType.OUTPUT,
+                //             group: NsGraph.AnchorGroup.BOTTOM,
+                //             tooltip: '输出桩',
+                //         }
+                //     ],
+                //     selectedColumnList: [],
+                // }
             ],
         },
         {
@@ -111,22 +132,75 @@ export const nodeDataService: NsNodeCollapsePanel.INodeDataService = async (meta
             header: '模型训练',
             children: [
                 {
-                    id: '6',
-                    label: '算法组件4',
-                    parentId: '5',
+                    id: '熵权法',
+                    label: '熵权法',
+                    parentId: '熵权法',
                     renderKey: DND_RENDER_ID,
+                    popoverContent: <NodeDescription name="熵权法" content="对构建的指标体系进行熵权法计算得到指数结果"/>,
+                    ports: [
+                        {
+                            id:uuidv4(),
+                            type: NsGraph.AnchorType.INPUT,
+                            group: NsGraph.AnchorGroup.TOP,
+                            tooltip: '输入桩',
+                        },
+                        {
+                            id:uuidv4(),
+                            type: NsGraph.AnchorType.OUTPUT,
+                            group: NsGraph.AnchorGroup.BOTTOM,
+                            tooltip: '输出桩',
+                        }
+                    ],
+
+                    // 上一节点输入
+                    params_data_path_url: '',  //上一步输出
+                    params_column_list: [],// 传入的全部列名列表
+                    // 节点自己的属性
+                    params_bd_component_name: 'entropy_weight_method',
+                    params_is_singal_debug: 0,  // 是否是单节点运行
+                    // 用户输入属性
+                    params_user_positive_index: [],  // 正向
+                    params_user_negative_index: [],  // 负向
+                    params_user_index_column_name: "",// 指数列名称
+                    params_user_column_filter_list: [],// 用户筛选列名列表
+                    // 节点输出
+                    output_data_path_url: '',// 输出csw文件对应的url
+                    output_column_list: [],// 输出列名列表
                 },
                 {
-                    id: '7',
-                    label: '算法组件5',
-                    parentId: '5',
+                    id: 'Min-Max标准化',
+                    label: 'Min-Max标准化',
+                    parentId: 'Min-Max标准化',
                     renderKey: DND_RENDER_ID,
-                },
-                {
-                    id: '8',
-                    label: '算法组件6',
-                    parentId: '5',
-                    renderKey: DND_RENDER_ID,
+                    popoverContent: <NodeDescription name="Min-Max标准化" content="对数据中某特征取值进行MinMax标准化"/>,
+                    ports: [
+                        {
+                            id:uuidv4(),
+                            type: NsGraph.AnchorType.INPUT,
+                            group: NsGraph.AnchorGroup.TOP,
+                            tooltip: '输入桩',
+                        },
+                        {
+                            id:uuidv4(),
+                            type: NsGraph.AnchorType.OUTPUT,
+                            group: NsGraph.AnchorGroup.BOTTOM,
+                            tooltip: '输出桩',
+                        }
+                    ],
+
+                    // 上一节点输入
+                    params_data_path_url: '',  //上一步输出
+                    params_column_list: [], // 传入的全部列名列表
+                    // 节点自己属性
+                    params_bd_component_name: 'minmax_scaling',
+                    params_is_singal_debug: 0,  // 是否是单节点运行
+                    // 用户输入属性
+                    params_user_min_value:0,
+                    params_user_max_value:100,
+                    params_user_column_filter_list: [],// 用户筛选列名列表
+                    // 节点输出属性
+                    output_data_path_url: '',// 输出csw文件对应的url
+                    output_column_list: [],// 输出列名列表
                 },
             ],
         },
