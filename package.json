@@ -137,5 +137,6 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "proxy": "http://drbd.model-os.cn"
 }

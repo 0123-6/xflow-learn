@@ -19,7 +19,7 @@ export namespace MockApi {
     }
     /** 加载图数据的api */
     export const loadGraphData = async () => {
-        const nodes: NsGraph.INodeConfig[] = [
+        let nodes: NsGraph.INodeConfig[] = [
             {
                 ...NODE_COMMON_PROPS,
                 id: 'node1',
@@ -100,7 +100,7 @@ export namespace MockApi {
                 ] as NsGraph.INodeAnchor[],
             },
         ]
-        const edges: NsGraph.IEdgeConfig[] = [
+        let edges: NsGraph.IEdgeConfig[] = [
             {
                 id: uuidv4(),
                 source: 'node1',
@@ -123,6 +123,8 @@ export namespace MockApi {
                 targetPortId: 'node4-input-1',
             },
         ]
+        nodes = []
+        edges = []
         return { nodes, edges }
     }
     /** 保存图数据的api */

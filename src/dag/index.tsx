@@ -63,7 +63,6 @@ export const Demo: React.FC<IProps> = props => {
     // 键盘事件配置
     const keybindingConfig = useKeybindingConfig()
 
-
     const cache = React.useMemo<{ app: IApplication } | null>(
         () => ({
             // @ts-ignore

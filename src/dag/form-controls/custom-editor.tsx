@@ -57,5 +57,5 @@ const Editor: React.FC<IEditorProps> = props => {
     })
 
     //disabled={disabled}
-    return <Input value={'sss'} placeholder={placeholder} />
+    return <Input value={value} placeholder={placeholder} />
 }

@@ -19,6 +19,7 @@ interface IProps {
 }
 
 export const AlgoIcon: React.FC<IProps> = props => {
+  console.log('algo icon: ',props)
   if (props.hide) {
     return null
   }
@@ -45,7 +46,7 @@ export const AlgoNode: NsGraph.INodeRender = props => {
         <DatabaseOutlined style={fontStyle}/>
       </span>
       <span className="label">{props.data.label}</span>
-      <span className="status">
+      <span className="status flex justify-center items-center">
         <AlgoIcon status={props.data && props.data.status} hide={props.isNodeTreePanel}/>
       </span>
     </div>
