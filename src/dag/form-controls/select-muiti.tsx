@@ -22,7 +22,7 @@ export const SelectMuiti: React.FC<NsJsonSchemaForm.IControlProps> = props => {
             required={required}
             hidden={hidden}
           >
-            <DSelect options={options} mode="multiple"/>
+            <DSelect options={options} mode="multiple" maxTagCount="responsive"/>
           </Form.Item>
         )
       }}
