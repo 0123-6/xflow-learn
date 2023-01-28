@@ -1,5 +1,5 @@
 import React from "react";
-import logoPng from '../icon/logo.png';
+import logoPng from '../icon/logo.svg';
 import writeDarkSvg from '../icon/write-dark.svg'
 import personSvg from '../icon/person.jpg'
 import undoSvg from '../icon/arrow-go-back.svg'
