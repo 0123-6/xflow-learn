@@ -25,8 +25,10 @@
     "incremental": true, // 通过从以前的编译中读取/写入信息到磁盘上的文件来启用增量编译
     "noFallthroughCasesInSwitch": true
   },
-//  "include": [
-//    "src/**/*" // *** TypeScript文件应该进行类型检查 ***
-//  ],
+  // *** TypeScript文件应该进行类型检查 ***
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+  ],
   "exclude": ["node_modules", "build"] // *** 不进行类型检查的文件 ***
 }

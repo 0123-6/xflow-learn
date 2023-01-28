@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>wenjiankai</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="按钮备份" transform="translate(-742.000000, -663.000000)">
+            <g id="wenjiankai" transform="translate(742.000000, 663.000000)">
+                <polygon id="路径" points="0 0 20 0 20 20 0 20"></polygon>
+                <path d="M2.5,17.5 C2.03976271,17.5 1.66666667,17.126904 1.66666667,16.6666667 L1.66666667,3.33333333 C1.66666667,2.87309604 2.03976271,2.5 2.5,2.5 L8.67833333,2.5 L10.345,4.16666667 L16.6666667,4.16666667 C17.126904,4.16666667 17.5,4.53976271 17.5,5 L17.5,7.5 L3.33333333,7.5 L3.33333333,15.83 L5,9.16666667 L18.75,9.16666667 L16.825,16.8691667 C16.7321174,17.2399426 16.3988995,17.5 16.0166667,17.5 L2.5,17.5 L2.5,17.5 Z" id="路径" fill="#C0C2C7" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

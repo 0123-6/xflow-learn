@@ -1,0 +1,12 @@
+.xflow-json-schema-form {
+    border-left: 1px solid #f2f2f2;
+}
+
+.dag-user-custom-clz .xflow-json-schema-form .xflow-json-schema-form-body {
+    background: white!important;
+    box-shadow: unset!important;
+}
+
+.ant-tabs-tab {
+    background: white!important;
+}

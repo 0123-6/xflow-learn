@@ -115,7 +115,7 @@ export const formSchemaService: NsJsonSchemaForm.IFormSchemaService = async args
                   ]
                 },
                 {
-                  label: '读取数据(网络路径)',
+                  label: '数据路径',
                   shape: ControlShape.INPUT,
                   name: 'params_user_data_path_url',
                   value: targetData.params_user_data_path_url,
