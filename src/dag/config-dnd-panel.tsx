@@ -249,8 +249,8 @@ export const nodeDataService: NsNodeCollapsePanel.INodeDataService = async (meta
                     // 输入参数
                     params_data_path_url: '',  // 读取视频数据
 
-                    // 节点自己的参数
-                    params_bd_component_name:"load_data_video_extract",
+                    // 节点自己的参数  -->
+                    params_bd_component_name:"video_extract",
                     params_is_single_debug: 0,  // 是否是单节点运行
 
                     // 输出参数
