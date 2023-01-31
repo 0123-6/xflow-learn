@@ -166,6 +166,9 @@ export namespace NsMenuItemConfig {
                                 }
                             })
                         }
+                    }).catch(err => {
+                        console.error(err)
+                        clearInterval(a)
                     })
                 },5000)
             })

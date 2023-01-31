@@ -32,7 +32,7 @@ export const MinMaxStandardization = (_targetType, _targetData, _modelService, c
     //最外层
     <div className="w-full h-full flex flex-col bg-white">
       {/*标题*/}
-      <div className="pt-4 pb-2 w-full border-b border-white-divide flex text-sm text-black">
+      <div className="pt-4 pb-2 w-full flex text-sm text-black">
         {/*模型名称*/}
         <div className="ml-4">模型名称</div>
         {/*模型名称2*/}
@@ -42,11 +42,11 @@ export const MinMaxStandardization = (_targetType, _targetData, _modelService, c
       <div className="w-full flex flex-col"
            style={{paddingLeft:'14px',paddingRight:'15px',}}>
         {/*label*/}
-        <div className="w-full mt-6 flex flex-col">
+        <div className="w-full mt-2 flex items-center">
           {/*title*/}
-          <span className="flex text-sm text-black-light">节点Label</span>
+          <span className="flex text-sm text-black-light mr-3" style={{width:'56px'}}>节点名称</span>
           {/*输入框*/}
-          <Input value={targetData.label} onChange={e => changeLabel(e,'label')} className="mt-2" allowClear size="middle"/>
+          <Input className="flex-1" value={targetData.label} onChange={e => changeLabel(e,'label')} allowClear size="middle"/>
         </div>
         {/*列处理*/}
         <div className="w-full mt-5 flex flex-col">
@@ -61,12 +61,12 @@ export const MinMaxStandardization = (_targetType, _targetData, _modelService, c
         </div>
         {/*最小值*/}
         <div className="w-full mt-4 flex items-center text-sm text-black-light">
-          <span className="mr-3">最小值</span>
+          <span className="flex justify-end mr-3" style={{width:'56px'}}>最小值</span>
           <InputNumber className="flex-1" value={targetData.params_user_min_value} onChange={e => changeLabel(e,'params_user_min_value')} size="middle"/>
         </div>
         {/*最大值*/}
         <div className="w-full mt-4 flex items-center text-sm text-black-light">
-          <span className="mr-3">最大值</span>
+          <span className="flex justify-end mr-3" style={{width:'56px'}}>最大值</span>
           <InputNumber className="flex-1" value={targetData.params_user_max_value} onChange={e => changeLabel(e,'params_user_max_value')} size="middle"/>
         </div>
       </div>

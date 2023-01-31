@@ -14,7 +14,12 @@ module.exports = {
       blue: {
         DEFAULT: '#4A83D6',
         hover: '#3964A4',
-        focus: '#244471'
+        focus: '#244471',
+        icon: {
+          DEFAULT: '#3683DD',
+          hover: '#3964A4',
+          focus: '#244471',
+        }
       },
       red: {
         DEFAULT: '#F06B7C',
@@ -32,7 +37,9 @@ module.exports = {
         focus: '#BEA139'
       },
       orange: {
-        DEFAULT: '#E57F3F',
+        DEFAULT: '#EE7D0F',
+        hover: '#E1770E',
+        focus: '#E1770E'
       },
       black: {
         DEFAULT: '#646464',

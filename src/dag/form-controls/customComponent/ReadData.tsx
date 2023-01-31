@@ -36,7 +36,7 @@ export const ReadData = (_targetType, _targetData, _modelService, commandService
     //最外层
     <div className="w-full h-full flex flex-col bg-white">
       {/*标题*/}
-      <div className="pt-4 pb-2 w-full border-b border-white-divide flex text-sm text-black">
+      <div className="pt-4 pb-2 w-full flex text-sm text-black">
         {/*模型名称*/}
         <div className="ml-4">模型名称</div>
         {/*模型名称2*/}
@@ -46,11 +46,11 @@ export const ReadData = (_targetType, _targetData, _modelService, commandService
       <div className="w-full flex flex-col"
            style={{paddingLeft:'14px',paddingRight:'15px',}}>
         {/*label*/}
-        <div className="w-full mt-6 flex flex-col">
+        <div className="w-full mt-2 flex items-center">
           {/*title*/}
-          <span className="flex text-sm text-black-light">节点Label</span>
+          <span className="flex text-sm text-black-light mr-3" style={{width:'56px'}}>节点名称</span>
           {/*输入框*/}
-          <Input value={targetData.label} onChange={e => changeLabel(e,'label')} className="mt-2" allowClear size="middle"/>
+          <Input className="flex-1" value={targetData.label} onChange={e => changeLabel(e,'label')} allowClear size="middle"/>
         </div>
         {/*数据类型*/}
         <div className="w-full mt-5 flex items-center text-sm text-black-light">

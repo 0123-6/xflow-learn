@@ -21,4 +21,11 @@ export function queryComponentStatus(data) {
 	return get('/cors/kfp/run/status',data)
 }
 
+/**
+ * 保存实验
+ */
+export function saveExperiment(data) {
+	return post('/cors/kfp/experiment/save',data)
+}
+
 

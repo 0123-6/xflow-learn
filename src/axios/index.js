@@ -2,6 +2,7 @@
  * 网络请求配置
  */
 import axios from "axios";
+import {message} from "antd";
 
 axios.defaults.timeout = 100000;
 // axios.defaults.baseURL = "http://drbd.model-os.cn";
@@ -29,13 +30,19 @@ axios.interceptors.request.use(
  */
 axios.interceptors.response.use(
 	(response) => {
-		if (response.data.errCode === 2) {
-			console.error("过期");
+		console.log('response',response)
+		if (response.data.code === -1) {
+			console.error("请求出错：", response.data.desc);
+			message.error(response.data.desc)
 		}
 		return response;
 	},
 	(error) => {
-		console.error("请求出错：", error);
+		console.log('into error')
+		if (error.response.data.code === -1) {
+			console.error("请求出错：", error.response.data.desc);
+			message.error(error.response.data.desc)
+		}
 	}
 );
 
@@ -50,7 +57,9 @@ export function get(url, params = {}) {
 		axios.get(url, {
 			params: params,
 		}).then((response) => {
-			landing(url, params, response.data);
+			if(response.data.code === -1) {
+				reject(response.data)
+			}
 			resolve(response.data);
 		})
 			.catch((error) => {
@@ -70,7 +79,9 @@ export function post(url, data) {
 	return new Promise((resolve, reject) => {
 		axios.post(url, data).then(
 			(response) => {
-				//关闭进度条
+				if(response.data.code === -1) {
+					reject(response.data)
+				}
 				resolve(response.data);
 			},
 			(err) => {

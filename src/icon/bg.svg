@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920px" height="1080px" viewBox="0 0 1920 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>椭圆形 + 椭圆形备份 蒙版</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="1920" height="1080"></rect>
+        <filter x="-7.3%" y="-9.4%" width="114.6%" height="118.9%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="50" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-7.3%" y="-9.4%" width="114.6%" height="118.9%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="50" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="椭圆形-+-椭圆形备份-蒙版">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="蒙版" fill="#F9F9F9" opacity="0.540863764" xlink:href="#path-1"></use>
+            <ellipse id="椭圆形" fill="#94C7FD" opacity="0.0277310326" filter="url(#filter-3)" mask="url(#mask-2)" cx="1811.91715" cy="1145.5" rx="1029.84599" ry="794.5"></ellipse>
+            <ellipse id="椭圆形备份" fill="#94C7FD" opacity="0.0382617769" filter="url(#filter-4)" mask="url(#mask-2)" cx="-117.259692" cy="-0.5" rx="1029.84599" ry="794.5"></ellipse>
+        </g>
+    </g>
+</svg>

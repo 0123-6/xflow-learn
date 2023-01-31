@@ -6,7 +6,7 @@ export const Panel = (_targetType, _targetData, _modelService) => () => {
     //最外层
     <div className="w-full h-full flex flex-col bg-white">
       {/*标题*/}
-      <div className="pt-4 pb-2 w-full border-b border-white-divide flex text-sm text-black">
+      <div className="pt-4 pb-2 w-full flex text-sm text-black">
         {/*模型名称*/}
         <div className="ml-4">编辑面板</div>
         {/*模型名称2*/}

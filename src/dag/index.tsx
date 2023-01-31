@@ -137,6 +137,7 @@ export const Demo: React.FC<IProps> = props => {
     }, // @ts-ignore
         [cache.app, meta])
     console.log('Demo组件重新执行了')
+    // const top2 = document.body.offsetHeight/2 - 113
     return (
         <XFlow
             className="dag-user-custom-clz"
@@ -148,11 +149,11 @@ export const Demo: React.FC<IProps> = props => {
         >
             <DagGraphExtension />
             <NodeCollapsePanel
-                className="xflow-node-panel"
+                className="left-panel"
                 searchService={dndPanelConfig.searchService}
                 nodeDataService={dndPanelConfig.nodeDataService}
                 onNodeDrop={dndPanelConfig.onNodeDrop}
-                position={{ width: 230, top: 60, bottom: 0, left: 0 }}
+                position={{ width: 242, top: 60, bottom: 0, left: 0 }}
                 footerPosition={{ height: 0 }}
                 bodyPosition={{ top: 40, bottom: 0, left: 0 }}
             />
@@ -160,20 +161,20 @@ export const Demo: React.FC<IProps> = props => {
             {/*    className="xflow-workspace-toolbar-top"*/}
             {/*    layout="horizontal"*/}
             {/*    config={toolbarConfig}*/}
-            {/*    position={{ top: 0, left: 230, right: 281, bottom: 0 }}*/}
+            {/*    position={{ top: 0, left: 242, right: 281, bottom: 0 }}*/}
             {/*/>*/}
             {/*顶部按钮区域*/}
             <WorkspacePanel position={{ left: 0, right: 0, top: 0,height:60 }}>
                 <TopArea/>
             </WorkspacePanel>
-            <XFlowCanvas position={{ top: 60, left: 230, right: 281, bottom: 58 }}>
-                <CanvasScaleToolbar position={{ top: 12, right: 12 }} />
+            <XFlowCanvas position={{ top: 60, left: 242, right: 281, bottom: 58 }}>
+                <CanvasScaleToolbar position={{ top: 260, right: 19 }} />
                 <CanvasContextMenu config={menuConfig} />
                 <CanvasSnapline color="#faad14" />
                 <CanvasNodePortTooltip />
             </XFlowCanvas>
             {/*底部按钮区域*/}
-            <WorkspacePanel position={{ left: 230, right: 281, bottom: 0,height:58 }}>
+            <WorkspacePanel position={{ left: 242, right: 281, bottom: 0,height:58 }}>
                 <BottomArea/>
             </WorkspacePanel>
             {/*<JsonSchemaForm*/}

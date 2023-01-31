@@ -1,5 +1,5 @@
 import {NODE_WIDTH, NODE_HEIGHT, DND_RENDER_ID} from './constant'
-import { uuidv4, NsGraph, NsGraphStatusCommand } from '@antv/xflow'
+import {uuidv4, NsGraph, NsGraphStatusCommand, XFlowGraphCommands, XFlowNodeCommands} from '@antv/xflow'
 import type { NsRenameNodeCmd } from './cmd-extensions/cmd-rename-node-modal'
 import type { NsNodeCmd, NsEdgeCmd, NsGraphCmd } from '@antv/xflow'
 import type { NsDeployDagCmd } from './cmd-extensions/cmd-deploy'
@@ -194,6 +194,59 @@ export namespace MockApi {
         console.log('my 添加边')
         console.info('addEdge service running, add edge:', args)
         const { edgeConfig } = args
+        // 添加边的时候，把源节点的指定字段赋值给目标节点的指定字段
+        const {commandService} = args
+
+        const sourceId = args.edgeConfig.source
+        let sourceInfo = null
+        const targetId = args.edgeConfig.target
+        let targetInfo = null
+        commandService.executeCommand<NsGraphCmd.SaveGraphData.IArgs>(
+          XFlowGraphCommands.SAVE_GRAPH_DATA.id, {
+              saveGraphDataService: async (_meta, _graphData) => {
+                  console.log('_graphData: ',_graphData)
+                  for(let i=0;i<_graphData.nodes.length;i++) {
+                      const node = _graphData.nodes[i]
+                      // 1. 根据id获取源节点信息
+                      if(node.id === sourceId) {
+                          sourceInfo = node
+                      }
+                      // 3. 根据id获取目标节点信息
+                      if(node.id === targetId) {
+                          targetInfo = node
+                      }
+                  }
+                  console.log('sourceInfo',sourceInfo)
+                  console.log('targetInfo',targetInfo)
+                  const paramList = Object.keys(sourceInfo)
+                  let params = {}
+                  for(let i=0;i<paramList.length;i++) {
+                      const oldParam = paramList[i]
+                      if(oldParam.indexOf('output_extra_')===-1 && oldParam.indexOf('output_')!==-1) {
+                          const newParam = oldParam.replace('output','params')
+                          params[newParam] = sourceInfo[oldParam]
+                      }
+                  }
+                  // 2. 获取源节点需要传递给后续节点的属性
+                  console.log(params)
+                  // 4. 用2得到的信息更新目标节点信息
+                  // 更新本节点
+                  console.log('targetInfo',targetInfo)
+                  await commandService.executeCommand<NsNodeCmd.UpdateNode.IArgs>(XFlowNodeCommands.UPDATE_NODE.id,{
+                      nodeConfig:{
+                          ...targetInfo,
+                          ...params
+                      }
+                  })
+                  commandService.executeCommand<NsGraphCmd.SaveGraphData.IArgs>(
+                    XFlowGraphCommands.SAVE_GRAPH_DATA.id, {
+                        saveGraphDataService: async (_meta, _graphData) => {
+                            console.log('_graphData',_graphData)
+                        }
+                    })
+
+              }
+          })
         return {
             ...edgeConfig,
             id: uuidv4(),

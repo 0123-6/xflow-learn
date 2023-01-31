@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>save-click</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="按钮备份" transform="translate(-996.000000, -659.000000)">
+            <g id="save-click" transform="translate(996.000000, 659.000000)">
+                <polygon id="路径" points="0 0 18 0 18 18 0 18"></polygon>
+                <path d="M13.5,14.25 L14.25,14.25 L14.25,5.121 L12.879,3.75 L12,3.75 L12,6.75 L5.25,6.75 L5.25,3.75 L3.75,3.75 L3.75,14.25 L4.5,14.25 L4.5,9 L13.5,9 L13.5,14.25 Z M3,2.25 L13.5,2.25 L15.53025,4.28025 C15.670912,4.42086955 15.75,4.61160389 15.75,4.8105 L15.75,15 C15.75,15.4142136 15.4142136,15.75 15,15.75 L3,15.75 C2.58578644,15.75 2.25,15.4142136 2.25,15 L2.25,3 C2.25,2.58578644 2.58578644,2.25 3,2.25 Z M6,10.5 L6,14.25 L12,14.25 L12,10.5 L6,10.5 Z" id="形状" fill="#358B94" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

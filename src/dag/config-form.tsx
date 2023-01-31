@@ -621,7 +621,7 @@ export const formSchemaService: NsJsonSchemaForm.IFormSchemaService = async args
               controls: [
                 {
                   name: 'label',
-                  label: '节点Label',
+                  label: '节点名称',
                   shape: ControlShape.INPUT,
                   value: targetData.label,
                 },

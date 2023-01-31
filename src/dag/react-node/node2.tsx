@@ -5,7 +5,7 @@ import {
   CloseCircleOutlined,
   CheckCircleOutlined,
   ExclamationCircleOutlined,
-  // InfoCircleOutlined,
+  InfoCircleOutlined,
 } from '@ant-design/icons'
 import type {NsGraph} from '@antv/xflow'
 import {NsGraphStatusCommand} from '@antv/xflow'
@@ -41,8 +41,8 @@ export const AlgoIcon: React.FC<IProps> = props => {
       return <CheckCircleOutlined style={{color: '#39ca74cc', fontSize: '16px'}}/>
     case NsGraphStatusCommand.StatusEnum.WARNING:
       return <ExclamationCircleOutlined style={{color: '#faad14', fontSize: '16px'}}/>
-    // case NsGraphStatusCommand.StatusEnum.DEFAULT:
-    //   return <InfoCircleOutlined style={{color: '#d9d9d9', fontSize: '16px'}}/>
+    case NsGraphStatusCommand.StatusEnum.DEFAULT:
+      return <InfoCircleOutlined style={{color: '#d9d9d9', fontSize: '16px'}}/>
     default:
       return null
   }
@@ -71,11 +71,11 @@ export const AlgoNode: NsGraph.INodeRender = props => {
   }
   return (
     <div className={`xflow-algo-node ${props.isNodeTreePanel ? 'panel-node' : ''}`}>
-      <span className={`icon ${props.isNodeTreePanel ? '' : 'text-main'}`}>
+      <span className="icon">
         {/*<DatabaseOutlined style={fontStyle}/>*/}
         <img src={icon} alt=""/>
       </span>
-      <span className="label">{props.data.label}</span>
+      <span className="label">{props.data.label}hhh</span>
       <span className="status flex justify-center items-center mr-1">
         <AlgoIcon status={props.data && props.data.status} hide={props.isNodeTreePanel}/>
       </span>
